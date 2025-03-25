@@ -85,14 +85,16 @@ const mostrarTodosLosIphones = () => {
 };
 
 const buscarIphone = () => {
-  while (true) {
-    let modeloBuscado = prompt(
-      "Ingresa el modelo de Iphone que buscas (Escribe 'salir' para terminar)"
+  let modeloBuscado;
+
+  do {
+    modeloBuscado = prompt(
+      "Ingresa el modelo de iPhone que buscas (Escribe 'salir' para terminar)"
     );
 
     if (modeloBuscado === null || modeloBuscado.toLowerCase() === "salir") {
       alertGracias();
-      return;
+      break;
     }
 
     const iphonesEncontrados = iphones.filter(
@@ -107,9 +109,9 @@ const buscarIphone = () => {
         );
       }
     } else {
-      console.log("Disculpe, ese modelo no esta disponible.");
+      console.log("Disculpe, ese modelo no está disponible.");
     }
-  }
+  } while (modeloBuscado !== null && modeloBuscado.toLowerCase() !== "salir");
 };
 
 let opcionInicial;
@@ -120,11 +122,12 @@ while (opcionInicial !== "salir") {
   );
 
   if (opcionInicial === null) {
-    alertGracias();
-    break;
+    opcionInicial = "salir";
   }
 
-  switch (opcionInicial.toLowerCase()) {
+  opcionInicial = opcionInicial.toLowerCase();
+
+  switch (opcionInicial) {
     case "ver todos":
       mostrarTodosLosIphones();
       if (confirm("Quieres buscar algún modelo en particular ahora?")) {
