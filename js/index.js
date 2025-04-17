@@ -100,12 +100,7 @@ const iphones = [
   },
 ];
 
-let carroIphones = localStorage.getItem("carroIphones")
-carroIphones = JSON.parse(carroIphones)
-
-if (carroIphones === null) {
-  carroIphones = []
-}
+let carroIphones = JSON.parse(localStorage.getItem("carroIphones")) || [];
 
 //mostrar las card de iphones
 

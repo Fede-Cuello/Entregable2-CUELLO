@@ -1,24 +1,19 @@
-let carroIphones = localStorage.getItem("carroIphones")
-carroIphones = JSON.parse(carroIphones)
+let carroIphones = JSON.parse(localStorage.getItem("carroIphones")) || [];
 
-if (carroIphones === null) {
-  carroIphones = []
-}
-let contenedorCarro = document.getElementById("contenedor-carro")
+let contenedorCarro = document.getElementById("contenedor-carro");
 
 function mostrarCarro(iphonesCarro) {
-    
-     if (iphonesCarro.length === 0) {
-        const mensajeVacio = document.createElement("h3")
-        mensajeVacio.textContent = "Tu carrito esta vacio"
-        contenedorCarro.appendChild(mensajeVacio)
-        return
-    }
-    
-    iphonesCarro.forEach ((iphone) => {
-        const cardCarro = document.createElement("div")
-        cardCarro.classList.add("col-md-2", "mb-4")
-        cardCarro.innerHTML = `
+  if (iphonesCarro.length === 0) {
+    const mensajeVacio = document.createElement("h3");
+    mensajeVacio.textContent = "Tu carrito esta vacio";
+    contenedorCarro.appendChild(mensajeVacio);
+    return;
+  }
+
+  iphonesCarro.forEach((iphone) => {
+    const cardCarro = document.createElement("div");
+    cardCarro.classList.add("col-md-2", "mb-4");
+    cardCarro.innerHTML = `
                             <div class="card">
                             <img src="${iphone.imagen}" class="card-img-top" alt="${iphone.modelo}">
                             <div class="card-carro-body">
@@ -32,28 +27,30 @@ function mostrarCarro(iphonesCarro) {
                             </div>
                             </div>`;
     contenedorCarro.appendChild(cardCarro);
-    });
-    
-    const botonVaciar = document.createElement("button")
-    botonVaciar.textContent = "Vaciar carrito"
-    botonVaciar.classList.add("vaciar-carrito")
-    botonVaciar.onclick = vaciarCarrito
-    contenedorCarro.appendChild(botonVaciar)
+  });
 
-  const sumaPrecios = iphonesCarro.reduce((contador, iphone) => contador +(iphone.precio * iphone.cantidad),0 )
+  const botonVaciar = document.createElement("button");
+  botonVaciar.textContent = "Vaciar carrito";
+  botonVaciar.classList.add("vaciar-carrito");
+  botonVaciar.onclick = vaciarCarrito;
+  contenedorCarro.appendChild(botonVaciar);
 
-  const precioTotal = document.createElement("h3")
-  precioTotal.textContent = `Total de la compra: ${sumaPrecios} USD`
+  const sumaPrecios = iphonesCarro.reduce(
+    (contador, iphone) => contador + iphone.precio * iphone.cantidad,
+    0
+  );
+
+  const precioTotal = document.createElement("h3");
+  precioTotal.textContent = `Total de la compra: ${sumaPrecios} USD`;
 
   contenedorCarro.appendChild(precioTotal);
 }
 
-
 function vaciarCarrito() {
-    localStorage.removeItem("carroIphones")
-    carroIphones = []
-    contenedorCarro.innerHTML = ""
-    mostrarCarro(carroIphones);
+  localStorage.removeItem("carroIphones");
+  carroIphones = [];
+  contenedorCarro.innerHTML = "";
+  mostrarCarro(carroIphones);
 }
 
 mostrarCarro(carroIphones);
