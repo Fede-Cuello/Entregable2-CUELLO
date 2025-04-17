@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/imagen-fondo.webp');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh ;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Orbitron';
+}
+
+main {
+  flex: 1;
+}
+h1 ,h2 ,h3  {
+    color: #CBA135;
+}
+
+
+.color-nav {
+  color:#40E0D0;
+}
+
+.color-nav:hover {
+  color: #bff3ed;
+}
+
+.navbar-nav .nav-link.color-nav {
+  color: #40E0D0;
+}
+
+
+.navbar-nav .nav-link.color-nav:hover {
+  color: #bff3ed;
+}
+
+.color-bus {
+  background-color: #c0b7b7;
+  color: #40E0D0;
+  border: 2px solid #40E0D0;
+}
+
+
+.color-btn {
+    color:#40E0D0;
+    border: 1px solid #bff3ed;
+    
+    
+}
+
+.color-btn:hover {
+    color: #fff;
+    background-color: #1D4ED8;
+}
+
+.d-flex .input-buscar {
+  min-width: 500px;
+  color: #000;
+  font-family: 'Montserrat';
+}
+
+.reservarIphone {
+  background-color:#808384;
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #bff3ed;
+  font-family: 'Orbitron';
+}
+
+.reservarIphone:hover {
+  color: #fff;
+  background-color: #1D4ED8;
+}
+
+.card {
+    background-color: transparent ;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color:  #CBA135;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Montserrat';
+}
+
+
+footer {
+  text-align: center;
+  color:#bff3ed;
+  font-family: 'Montserrat';
+}
