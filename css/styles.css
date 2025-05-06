@@ -5,7 +5,7 @@
 }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/imagen-fondo.webp');
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/imagen-fondo.webp');
   background-size: cover;
   background-position: center;
   min-height: 100vh ;
@@ -72,7 +72,7 @@ h1 ,h2 ,h3  {
   font-family: 'Orbitron';
 }
 
-.reservarIphone:hover {
+.reservarIphone:hover , .boton-finalizar:hover , .sumar-cantidad:hover{
   color: #fff;
   background-color: #1D4ED8;
 }
@@ -96,3 +96,44 @@ footer {
 .navbar-toggler-icon { 
   filter: invert(1) 
 }
+
+.restar-cantidad,.sumar-cantidad {
+  background-color:#808384;
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #bff3ed;
+  font-family: 'Orbitron';
+  width: 30px;
+}
+
+.eliminar-producto {
+  background-color:#808384;
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #bff3ed;
+  font-family: 'Orbitron';
+}
+
+.eliminar-producto:hover ,.vaciar-carrito:hover , .restar-cantidad:hover{
+  color: #fff;
+  background-color: #d81d1d;
+}
+
+.vaciar-carrito , .boton-finalizar {
+  background-color:#808384;
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #bff3ed;
+  font-family: 'Orbitron';
+  
+}
+
+.contenedor-final {
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
