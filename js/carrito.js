@@ -100,7 +100,7 @@ function mostrarCarro(iphonesCarro) {
       });
   });
 
-  agregarEventosBotonesCarrito(); 
+  botonesCarrito(); 
 }
 
 function vaciarCarrito() {
@@ -141,14 +141,9 @@ function vaciarCarrito() {
 
 mostrarCarro(carroIphones)
 
-//contenedorCarro.addEventListener("click", botonesCarrito);
-
-//function botonesCarrito(e) {
- // const id = parseInt(e.target.id);
-//}
 
 
-function agregarEventosBotonesCarrito() {
+function botonesCarrito() {
  const botonesSumar = document.querySelectorAll(".sumar-cantidad");
   botonesSumar.forEach((boton) => {boton.addEventListener("click", (e) => {
       const id = parseInt(e.target.id);
@@ -173,20 +168,20 @@ function agregarEventosBotonesCarrito() {
       const productoElegido = carroIphones.find((iphone) => iphone.id === id);
       const stockOriginal = iphones.find((iphone) => iphone.id === id);
 
-      //console.log("producto antes de restar:", productoElegido);
+      //console.log("producto antes de restar:", productoElegido)
 
       if (productoElegido && stockOriginal) {
         if (productoElegido.cantidad > 1) {
-          //console.log("Restando 1 a la cantidad");
+          //console.log("Restando 1 a la cantidad")
           productoElegido.cantidad--
           stockOriginal.stock++
         } else {
-          //console.log("eliminando producto del carrito");
+          //console.log("eliminando producto del carrito")
           carroIphones = carroIphones.filter((iphone) => iphone.id !== id)
           stockOriginal.stock++ 
         }
 
-        //console.log("despues de restar:", productoElegido);
+        //console.log("despues de restar:", productoElegido)
         localStorage.setItem("carroIphones", JSON.stringify(carroIphones))
         localStorage.setItem("iphones", JSON.stringify(iphones))
 
