@@ -1,114 +1,30 @@
 let iphones = JSON.parse(localStorage.getItem("iphones"));
-
-if (!iphones) {
-  iphones = [
-    {
-      modelo: "iPhone 12",
-      precio: 700,
-      almacenamiento: "128GB",
-      color: "Negro",
-      estado: "Usado",
-      bateria: 80,
-      imagen: "../assets/iphone12negro.webp",
-      id: 1,
-      stock: 5,
-    },
-    {
-      modelo: "iPhone 12 PRO",
-      precio: 800,
-      almacenamiento: "258GB",
-      color: "Azul",
-      estado: "Usado",
-      bateria: 80,
-      imagen: "../assets/iphone12proazul.webp",
-      id: 2,
-      stock: 6,
-    },
-    {
-      modelo: "iPhone 13",
-      precio: 850,
-      almacenamiento: "128GB",
-      color: "Blanco",
-      estado: "Nuevo",
-      bateria: 100,
-      imagen: "../assets/iphone13blanco.webp",
-      id: 3,
-      stock: 3,
-    },
-    {
-      modelo: "iPhone 13 PRO",
-      precio: 850,
-      almacenamiento: "128GB",
-      color: "Gris",
-      estado: "Usado",
-      bateria: 95,
-      imagen: "../assets/iphone13progris.png",
-      id: 4,
-      stock: 4,
-    },
-    {
-      modelo: "iPhone 14",
-      precio: 950,
-      almacenamiento: "256GB",
-      color: "Rojo",
-      estado: "Nuevo",
-      bateria: 100,
-      imagen: "../assets/iphone14rojo.png",
-      id: 5,
-      stock: 2,
-    },
-    {
-      modelo: "iPhone 14 PRO",
-      precio: 1050,
-      almacenamiento: "512GB",
-      color: "Negro",
-      estado: "Nuevo",
-      bateria: 100,
-      imagen: "../assets/iphone14pronegro.webp",
-      id: 6,
-      stock: 3,
-    },
-    {
-      modelo: "iPhone 14 PRO",
-      precio: 900,
-      almacenamiento: "512GB",
-      color: "Morado",
-      estado: "Usado",
-      bateria: 85,
-      imagen: "../assets/iphone14promorado.jpg",
-      id: 7,
-      stock: 5,
-    },
-    {
-      modelo: "iPhone 15",
-      precio: 1000,
-      almacenamiento: "512GB",
-      color: "Rosa",
-      estado: "Usado",
-      bateria: 90,
-      imagen: "../assets/iphone15rosa.webp",
-      id: 8,
-      stock: 4,
-    },
-    {
-      modelo: "iPhone 15 PRO",
-      precio: 1200,
-      almacenamiento: "512GB",
-      color: "Titanium",
-      estado: "Nuevo",
-      bateria: 100,
-      imagen: "../assets/iphone15protitanio.webp",
-      id: 9,
-      stock: 2,
-    },
-  ]
-
-  localStorage.setItem("iphones", JSON.stringify(iphones))
-}
-
 let carroIphones = JSON.parse(localStorage.getItem("carroIphones")) || [];
 
-//mostrar las card de iphones
+
+async function cargarProductos() {
+  try {
+    const response = await fetch("../db/productos.json");
+    const data = await response.json();
+    iphones = data
+
+    localStorage.setItem("iphones", JSON.stringify(iphones))
+
+    iphonesCards(iphones)
+    contadorCarro()
+  } catch (err) {
+    const contenedor = document.getElementById("contenedor-productos");
+    contenedor.innerHTML ="<h3>Error al cargar los productos. Intentalo mas tarde.</h3>"
+  }
+}
+
+if (!iphones) {
+  cargarProductos();
+} else {
+  iphonesCards(iphones);
+  contadorCarro();
+}
+
 
 function iphonesCards(iphones) {
   const contenedor = document.getElementById("contenedor-productos");
@@ -146,10 +62,6 @@ function iphonesCards(iphones) {
   reservarIphone();
 }
 
-iphonesCards(iphones);
-contadorCarro();
-
-//reservar con boton
 
 function reservarIphone() {
   const btnComprar = document.querySelectorAll(".reservarIphone");
