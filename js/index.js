@@ -4,7 +4,7 @@ let carroIphones = JSON.parse(localStorage.getItem("carroIphones")) || [];
 
 async function cargarProductos() {
   try {
-    const response = await fetch("/db/productos.json");
+    const response = await fetch("db/productos.json");
     const data = await response.json();
     iphones = data
 
