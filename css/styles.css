@@ -138,3 +138,15 @@ footer {
 }
 
 
+.colorLetrasCarro {
+  color: #CBA135;
+  font-family: 'Montserrat';
+  background-color: #353c42;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 14px;
+  max-width: 100%;
+  width: 90%;
+  margin:0 auto ;
+
+}

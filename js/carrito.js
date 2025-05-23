@@ -2,16 +2,16 @@ let carroIphones = JSON.parse(localStorage.getItem("carroIphones")) || [];
 let iphones = JSON.parse(localStorage.getItem("iphones")) || [];
 let contenedorCarro = document.getElementById("contenedor-carro");
 
-function mostrarCarro(iphonesCarro) {
+function mostrarCarro() {
   contenedorCarro.innerHTML = ""
-  if (iphonesCarro.length === 0) {
+  if (carroIphones.length === 0) {
     const mensajeVacio = document.createElement("h3");
     mensajeVacio.textContent = "Tu carrito esta vacio"
     contenedorCarro.appendChild(mensajeVacio)
     return
   }
 
-  iphonesCarro.forEach((iphone) => {
+  carroIphones.forEach((iphone) => {
 
     let botonEstado = ""
 
@@ -19,26 +19,25 @@ function mostrarCarro(iphonesCarro) {
       botonEstado = "disabled"
     }
 
-    const cardCarro = document.createElement("div");
-    cardCarro.classList.add("col-md-2", "mb-4")
-    cardCarro.innerHTML = `
-                            <div class="card">
-                            <img src="${iphone.imagen}" class="card-img-top" alt="${iphone.modelo}">
-                            <div class="card-carro-body">
-                            <h3 class="card-carro-title">${iphone.modelo}</h3>
-                            <p class="card-carro-text">Precio: ${iphone.precio}</p>
-                            <p class="card-carro-text">Almacenamiento: ${iphone.almacenamiento}</p>
-                            <p class="card-carro-text">Color: ${iphone.color}</p>
-                            <p class="card-carro-text">Estado: ${iphone.estado}</p>
-                            <p class="card-carro-text">Batería: ${iphone.bateria}%</p>
-                            <p class="card-carro-text">Subtotal: ${iphone.cantidad * iphone.precio} USD </p>
-                            <button class="restar-cantidad" id="${iphone.id}">-</button>
-                            <p class="card-carro-text">Cantidad: ${iphone.cantidad}</p>
-                            <button class="sumar-cantidad" id="${iphone.id}" ${botonEstado}>+</button>
-                            <button class="eliminar-producto" id="${iphone.id}">Eliminar Producto</button>
-                            </div>
-                            </div>`;
-    contenedorCarro.appendChild(cardCarro)
+    const divCarro = document.createElement("div");
+    divCarro.classList.add("d-flex","flex-wrap","justify-content-between","align-items-center","border","p-3","mb-3","gap-2","colorLetrasCarro")
+    divCarro.innerHTML = divCarro.innerHTML =
+      `<div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Modelo:</strong> ${iphone.modelo}</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Precio:</strong> ${iphone.precio} USD</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Almacenamiento:</strong> ${iphone.almacenamiento}</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Color:</strong> ${iphone.color}</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Estado:</strong> ${iphone.estado}</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Batería:</strong> ${iphone.bateria}%</div>
+        <div class="flex-grow-1 flex-shrink-1  flex-md-auto"><strong>Subtotal:</strong> ${iphone.cantidad * iphone.precio} USD</div>
+        <div class="d-flex gap-1 flex-grow-1 flex-shrink-1 flex-md-auto align-items-center">
+      <button class="btn btn-sm btn-outline-secondary restar-cantidad" id="${iphone.id}">-</button>
+      <span class="mx-2">${iphone.cantidad}</span>
+      <button class="btn btn-sm btn-outline-secondary sumar-cantidad" id="${iphone.id}" ${botonEstado}>+</button>
+      <button class="btn btn-sm btn-danger eliminar-producto" id="${iphone.id}">Eliminar</button>
+    </div>
+  `
+
+    contenedorCarro.appendChild(divCarro);
   })
 
   const contenedorFinal = document.createElement("div");
@@ -49,7 +48,7 @@ function mostrarCarro(iphonesCarro) {
   botonVaciar.classList.add("vaciar-carrito")
   botonVaciar.onclick = vaciarCarrito
   
-  const sumaPrecios = iphonesCarro.reduce((contador, iphone) => contador + iphone.precio * iphone.cantidad,0);
+  const sumaPrecios = carroIphones.reduce((contador, iphone) => contador + iphone.precio * iphone.cantidad,0);
 
   const precioTotal = document.createElement("h3");
   precioTotal.textContent = `Total de la compra: ${sumaPrecios} USD`
@@ -124,7 +123,7 @@ function vaciarCarrito() {
 
      localStorage.setItem("iphones", JSON.stringify(iphones))
 
-      mostrarCarro(carroIphones)
+      mostrarCarro();
 
       Swal.fire({
         icon: "success",
@@ -136,7 +135,7 @@ function vaciarCarrito() {
   })
 }
 
-mostrarCarro(carroIphones)
+mostrarCarro();
 
 
 
@@ -297,6 +296,27 @@ document.getElementById("formCompra").addEventListener("submit", function (event
       localStorage.setItem("datosCompra", JSON.stringify(datosPersona))
 
       generarPDF(datosPersona);
+
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalCompra"));
+      modal.hide();
+
+      setTimeout(() => {
+        Swal.fire({
+          title: "Compra exitosa!",
+          text: "Gracias por tu compra.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        }).then(() => {
+          localStorage.removeItem("carroIphones")
+          localStorage.removeItem("datosCompra")
+
+          carroIphones = [];
+
+         mostrarCarro();
+        })
+      }, 300)
+
     }
   })
 
@@ -329,7 +349,7 @@ function generarPDF(datosCompra) {
   y += 10
 
   productos.forEach((producto) => {
-    pdf.text(`Cantidad ${producto.cantidad}- ${producto.modelo} - ${producto.precio}USD`,20,y);
+    pdf.text(`Cantidad ${producto.cantidad}- ${producto.modelo} - ${producto.precio * producto.cantidad}USD`,20,y);
     total += producto.precio * producto.cantidad
     y += 10
   })
