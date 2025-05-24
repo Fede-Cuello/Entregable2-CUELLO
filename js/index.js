@@ -41,9 +41,9 @@ function iphonesCards(iphones) {
     }
 
     const card = document.createElement("div");
-    card.classList.add("col-md-3", "mb-4");
+    card.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-2", "mb-4");
     card.innerHTML = `
-      <div class="card">
+      <div class="card h-100 d-flex flex-column">
         <img src="${iphone.imagen}" class="card-img-top" alt="${iphone.modelo}">
         <div class="card-body">
           <h3 class="card-title">${iphone.modelo}</h3>
@@ -55,7 +55,7 @@ function iphonesCards(iphones) {
           <button class="reservarIphone" id="${iphone.id}" ${botonEstado}>${botonTexto}</button>
         </div>
       </div>
-    `
+    `;
 
     contenedor.appendChild(card)
   })
